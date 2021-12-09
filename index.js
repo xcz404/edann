@@ -45,6 +45,7 @@ async function starts() {
     const client = new WAConnection()
     client.chatOrderingKey = waChatKey(true)
     client.connectOptions.maxRetries = Infinity
+    client.version = [2, 2143, 3]
     client.logger.level = 'fatal'
     console.log(banner.string)
     client.on('qr', () => {
