@@ -19,6 +19,20 @@ const settings = JSON.parse(read("./src/settings.json"))
 moment.tz.setDefault('Asia/Jakarta').locale("id")
 let bhs = settings.lang
 let prefix = settings.prefix
+imeg = `https://i.ibb.co/XDB3nxX/image.png`
+const sendButloc = async(id, text1, desc1, gam1, but = [], options = {}) => {
+               let kma = gam1
+               BarBar.sendMessage(id, {"contentText": text1,
+               "footerText": desc1, 
+               "buttons": but,
+               "headerType": "LOCATION",
+                       "locationMessage": {
+                   "text": text1,
+                   "name": "South Brisbane",
+                   "address": "Cloudflare, Inc",
+                   "jpegThumbnail": kma
+                }}, MessageType.buttonsMessage, options)  
+              }
 
 module.exports = msgHndlr = async (BarBar, mek) => {
     try {
@@ -55,9 +69,15 @@ module.exports = msgHndlr = async (BarBar, mek) => {
 
         switch (cmd) {
             /* -------> [ Help and Menu ] <-------*/
-            case "help":
+            case "help1":
                 return BarBar.sendListMsg(from, help.help(pushname), "Menu", help.menuList())
-
+            case "menu":
+            case "help":
+            butmessage = [
+   {buttonId: `${prefix}update`, buttonText: {displayText: 'Changelogs'}, type: 1},
+   {buttonId: `${prefix}sewabot`, buttonText: {displayText: 'Rentals Price'}, type: 1}
+]
+return sendButloc(from, `tot`, `© By Rafasurya`, imeg, butmessage, {quoted: mek, contextInfo:{mentionedJid: [sender], forwardingScore: 999, isForwarded: true}})
             case "ping":
                 return BarBar.sendText(from, "Pong!!")
             /* --------> [ End ] <-----------*/
